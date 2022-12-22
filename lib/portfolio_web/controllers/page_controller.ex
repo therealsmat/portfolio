@@ -10,9 +10,8 @@ defmodule PortfolioWeb.PageController do
     render(conn, "posts.html", post: Portfolio.Blog.all_posts() |> List.first())
   end
 
-  def post(conn, params) do
-    IO.inspect(params)
-    render(conn, "post.html")
+  def post(conn, _params) do
+    render(conn, "post.html", post: Portfolio.Blog.all_posts() |> List.first())
   end
 
   def uses(conn, _params) do

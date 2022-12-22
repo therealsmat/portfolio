@@ -9,7 +9,7 @@ module.exports = {
     '../lib/*_web.ex',
     '../lib/*_web/**/*.*ex'
   ],
-  darkMode: 'media',
+  darkMode: 'class',
   theme: {
     screens: {
       sm: '640px',

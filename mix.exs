@@ -49,7 +49,8 @@ defmodule Portfolio.MixProject do
       {:nimble_publisher, "~> 0.1.3"},
       {:makeup_elixir, "~> 0.16.0"},
       {:makeup_erlang, "~> 0.1.1"},
-      {:tailwind, "~> 0.1.9"}
+      {:tailwind, "~> 0.1.9"},
+      {:timex, "~> 3.7"}
     ]
   end
 

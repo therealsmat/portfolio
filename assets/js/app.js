@@ -42,3 +42,36 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+// Set dark theme by default if default for the OS is dark mode...
+setDefaultTheme();
+
+document.getElementById("toggleTheme").addEventListener("click", toggleTheme);
+
+function setDefaultTheme() {
+  theme = "light";
+
+  if (localStorage.getItem("theme")) {
+    theme = localStorage.getItem("theme");
+  } else {
+    theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light"
+  }
+  
+  setTheme(theme);
+}
+
+function isCurrentDarkMode() {
+  return document.getElementsByTagName("html")[0].classList.contains("dark");
+}
+
+function toggleTheme() { setTheme(isCurrentDarkMode() ? "light" : "dark"); }
+
+function setTheme(theme) {
+  root = document.getElementsByTagName("html")[0];
+  localStorage.setItem("theme", theme);
+
+  if(theme == "dark") {
+    root.classList.add("dark");
+  } else {
+    root.classList.remove("dark");
+  }
+}

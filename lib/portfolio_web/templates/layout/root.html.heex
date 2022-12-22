@@ -14,9 +14,6 @@
       src={Routes.static_path(@conn, "/assets/app.js")}
     >
     </script>
-    <style>
-      <%= Makeup.stylesheet(:emacs_style, "makeup") %>
-    </style>
   </head>
   <body class="flex h-full flex-col bg-zinc-50 dark:bg-black">
     <div class="fixed inset-0 flex justify-center sm:px-8">
@@ -82,7 +79,7 @@
                         </button>
                       </div>
                       <nav class="pointer-events-auto hidden md:block">
-                        <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-zinc-800/5 dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+                        <ul class="flex rounded-full px-3 text-sm font-medium text-zinc-800 shadow-zinc-800/5 dark:text-zinc-200 dark:ring-white/10">
                           <%= for route <- nav_routes() do %>
                             <li><%= raw(nav_link(@conn, route)) %></li>
                           <% end %>
@@ -94,6 +91,7 @@
                       <div class="pointer-events-auto">
                         <button
                           type="button"
+                          id="toggleTheme"
                           aria-label="Toggle dark mode"
                           class="group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
                         >
