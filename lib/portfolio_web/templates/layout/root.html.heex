@@ -15,18 +15,6 @@
     >
     </script>
     <style>
-      :root {
-        --header-position: sticky;
-        --content-offset: 0px;
-        --header-height: 64px;
-        --header-mb: 0px;
-        --avatar-image-transform: translate3d(0rem, 0, 0) scale(1);
-        --avatar-border-transform: translate3d(-0.222222rem, 0, 0) scale(1.77778);
-        --avatar-border-opacity: 0;
-        --header-top: 0px;
-        --avatar-top: 0px;
-      }
-
       <%= Makeup.stylesheet(:emacs_style, "makeup") %>
     </style>
   </head>
@@ -94,7 +82,7 @@
                         </button>
                       </div>
                       <nav class="pointer-events-auto hidden md:block">
-                        <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+                        <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-zinc-800/5 dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
                           <%= for route <- nav_routes() do %>
                             <li><%= raw(nav_link(@conn, route)) %></li>
                           <% end %>
@@ -170,9 +158,12 @@
                   <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
                     <div class="flex gap-6 text-sm font-medium text-zinc-800 dark:text-zinc-200">
                       <%= for %{text: text, href: href} <- nav_routes() do %>
-                      <a class="transition hover:text-teal-500 dark:hover:text-teal-400" href={href}>
-                        <%= text %>
-                      </a>
+                        <a
+                          class="transition hover:text-teal-500 dark:hover:text-teal-400"
+                          href={href}
+                        >
+                          <%= text %>
+                        </a>
                       <% end %>
                     </div>
                     <p class="text-sm text-zinc-400 dark:text-zinc-500">

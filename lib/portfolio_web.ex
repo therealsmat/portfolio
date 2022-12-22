@@ -102,9 +102,7 @@ defmodule PortfolioWeb do
       def nav_routes do
         [
           %{text: "About", href: "/"},
-          %{text: "Blog", href: "/blog"},
-          %{text: "Projects", href: "/projects"},
-          %{text: "Uses", href: "/uses"},
+          %{text: "Blog", href: "/posts"}
         ]
       end
 
