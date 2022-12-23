@@ -46,6 +46,10 @@ window.liveSocket = liveSocket
 setDefaultTheme();
 
 document.getElementById("toggleTheme").addEventListener("click", toggleTheme);
+document.getElementById("mobile-open-menu-btn").addEventListener("click", openMobileMenu);
+document.getElementById("closeMenuBtn").addEventListener("click", closeMobileMenu);
+document.getElementById("mobileMenuBackdrop").addEventListener("click", closeMobileMenu);
+document.getElementById("soundBtn").addEventListener("click", playPronunciation);
 
 function setDefaultTheme() {
   theme = "light";
@@ -74,4 +78,16 @@ function setTheme(theme) {
   } else {
     root.classList.remove("dark");
   }
+}
+
+function openMobileMenu() {
+  document.getElementById("mobile-menu").parentElement.classList.remove("hidden");
+}
+
+function closeMobileMenu() {
+  document.getElementById("mobile-menu").parentElement.classList.add("hidden");
+}
+
+function playPronunciation() {
+  document.getElementById("pronunciation").play();
 }

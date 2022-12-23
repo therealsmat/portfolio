@@ -26,6 +26,7 @@
         stroke-width="1.5"
         stroke="currentColor"
         class="w-6 h-6 ml-4"
+        id="soundBtn"
       >
         <path
           stroke-linecap="round"
@@ -34,6 +35,7 @@
         />
       </svg>
       <span class="ml-4 font-light text-2xl">toe-seen</span>
+      <audio id="pronunciation" src={Routes.static_path(@conn, "/assets/tosin.mp3")}></audio>
     </h1>
     <div class="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
       <p>
@@ -139,7 +141,10 @@
               clip-rule="evenodd"
             />
           </svg>
-          <span class="ml-4">Elixir, OTP, FP, Scalable Systems, JS, PHP, MySQL, Redis <span title="and much more">...</span></span>
+          <span class="ml-4">
+            Elixir, OTP, FP, Scalable Systems, JS, PHP, MySQL, Redis
+            <span title="and much more">...</span>
+          </span>
         </p>
       </li>
       <li class="mt-4 flex">
