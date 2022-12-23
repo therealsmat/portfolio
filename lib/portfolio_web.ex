@@ -99,6 +99,11 @@ defmodule PortfolioWeb do
       import PortfolioWeb.Gettext
       alias PortfolioWeb.Router.Helpers, as: Routes
 
+      def current_year do
+        %DateTime{year: year} = DateTime.utc_now()
+        year
+      end
+
       def nav_routes do
         [
           %{text: "About", href: "/"},
