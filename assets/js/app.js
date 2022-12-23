@@ -1,6 +1,5 @@
 // We import the CSS which is extracted to its own file by esbuild.
 // Remove this line if you add a your own CSS build pipeline (e.g postcss).
-import "../css/app.css"
 
 // If you want to use Phoenix channels, run `mix help phx.gen.channel`
 // to get started and then uncomment the line below.
@@ -43,3 +42,36 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+// Set dark theme by default if default for the OS is dark mode...
+setDefaultTheme();
+
+document.getElementById("toggleTheme").addEventListener("click", toggleTheme);
+
+function setDefaultTheme() {
+  theme = "light";
+
+  if (localStorage.getItem("theme")) {
+    theme = localStorage.getItem("theme");
+  } else {
+    theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light"
+  }
+  
+  setTheme(theme);
+}
+
+function isCurrentDarkMode() {
+  return document.getElementsByTagName("html")[0].classList.contains("dark");
+}
+
+function toggleTheme() { setTheme(isCurrentDarkMode() ? "light" : "dark"); }
+
+function setTheme(theme) {
+  root = document.getElementsByTagName("html")[0];
+  localStorage.setItem("theme", theme);
+
+  if(theme == "dark") {
+    root.classList.add("dark");
+  } else {
+    root.classList.remove("dark");
+  }
+}

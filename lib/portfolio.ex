@@ -1,9 +1,11 @@
 defmodule Portfolio do
-  @moduledoc """
-  Portfolio keeps the contexts that define your domain
-  and business logic.
+  @doc "Get a key from the portfolio config"
+  def get_config(key) do
+    Application.fetch_env!(:portfolio, key)
+  end
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  def current_year do
+    %DateTime{year: year} = DateTime.utc_now()
+    year
+  end
 end

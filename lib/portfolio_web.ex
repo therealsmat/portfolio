@@ -98,6 +98,39 @@ defmodule PortfolioWeb do
       import PortfolioWeb.ErrorHelpers
       import PortfolioWeb.Gettext
       alias PortfolioWeb.Router.Helpers, as: Routes
+
+      def nav_routes do
+        [
+          %{text: "About", href: "/"},
+          %{text: "Blog", href: "/posts"}
+        ]
+      end
+
+      @doc """
+      Builds an html a tag
+
+      Options are `href`, `text`
+      """
+      def nav_link(%{request_path: request_path}, opts) do
+        href = String.trim(opts.href, "/")
+        current_path = String.trim(request_path, "/")
+
+        is_active? =
+          case href do
+            "" -> href == current_path
+            href -> href == current_path || String.starts_with?(current_path, href)
+          end
+
+        """
+        <a class="relative block px-3 py-2 transition #{if(is_active?, do: "text-teal-500", else: "hover:text-teal-500")} dark:text-teal-400" href="#{opts.href}">
+        #{opts.text}#{if(is_active?, do: "<span class=\"absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0\"></span>")}
+        </a>
+        """
+      end
+
+      def date_for_humans(%Date{} = date) do
+        Timex.format!(date, "%B %u %Y", :strftime)
+      end
     end
   end
 

@@ -6,9 +6,18 @@
 }
 ---
 This is the post I was talking about. Now, what were we saying?
+
+Most companies try to stay ahead of the curve when it comes to visual design, but for Planetaria we needed to create a brand that would still inspire us 100 years from now when humanity has spread across our entire solar system.
+
 ```elixir
-defmodule Tosin do
-  @posts []
+def controller do
+  quote do
+    use Phoenix.Controller, namespace: PortfolioWeb
+
+    import Plug.Conn
+    import PortfolioWeb.Gettext
+    alias PortfolioWeb.Router.Helpers, as: Routes
+  end
 end
 ```
 

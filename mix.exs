@@ -48,7 +48,9 @@ defmodule Portfolio.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:nimble_publisher, "~> 0.1.3"},
       {:makeup_elixir, "~> 0.16.0"},
-      {:makeup_erlang, "~> 0.1.1"}
+      {:makeup_erlang, "~> 0.1.1"},
+      {:tailwind, "~> 0.1.9"},
+      {:timex, "~> 3.7"}
     ]
   end
 
@@ -61,7 +63,7 @@ defmodule Portfolio.MixProject do
   defp aliases do
     [
       setup: ["deps.get"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
     ]
   end
 end
