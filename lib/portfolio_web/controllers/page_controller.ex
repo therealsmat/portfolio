@@ -7,7 +7,13 @@ defmodule PortfolioWeb.PageController do
   end
 
   def posts(conn, _params) do
-    render(conn, "posts.html", post: Portfolio.Blog.all_posts() |> List.first())
+    posts =
+      Portfolio.Blog.all_posts()
+      |> Enum.map(fn post ->
+        Map.take(post, [:id, :title, :description, :date, :published])
+      end)
+
+    render(conn, "posts.html", posts: posts)
   end
 
   def post(conn, _params) do
