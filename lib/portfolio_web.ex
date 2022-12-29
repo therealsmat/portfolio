@@ -134,7 +134,7 @@ defmodule PortfolioWeb do
       end
 
       def date_for_humans(%Date{} = date) do
-        Timex.format!(date, "%B %u %Y", :strftime)
+        Timex.format!(date, "%B %d %Y", :strftime)
       end
     end
   end

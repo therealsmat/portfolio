@@ -241,13 +241,13 @@ Makeup stylesheet for syntax highlighting
   user-select: none;
 }
 .makeup .bp {color: #cd00cd; } /* :name_builtin_pseudo */
-.makeup .c {color: #000080; } /* :comment */
-.makeup .c1 {color: #000080; } /* :comment_single */
+.makeup .c {color: #52525b; } /* :comment */
+.makeup .c1 {color: #52525b; } /* :comment_single */
 .makeup .nf {color: #f4f4f5; }
-.makeup .ch {color: #000080; } /* :comment_hashbang */
-.makeup .cm {color: #000080; } /* :comment_multiline */
-.makeup .cp {color: #000080; } /* :comment_preproc */
-.makeup .cpf {color: #000080; } /* :comment_preproc_file */
+.makeup .ch {color: #52525b; } /* :comment_hashbang */
+.makeup .cm {color: #52525b; } /* :comment_multiline */
+.makeup .cp {color: #52525b; } /* :comment_preproc */
+.makeup .cpf {color: #52525b; } /* :comment_preproc_file */
 .makeup .cs {color: #cd0000; font-weight: bold; } /* :comment_special */
 .makeup .dl {color: #cd0000; } /* :string_delimiter */
 .makeup .err {border: #FF0000; } /* :error */

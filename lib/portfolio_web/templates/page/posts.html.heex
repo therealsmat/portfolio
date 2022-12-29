@@ -2,26 +2,23 @@
   <h1 class="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
     Blog
   </h1>
-  <p class="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-    All of my long-form thoughts on software engineering, product design, and more.
-  </p>
 </header>
 
 <div class="mt-16 sm:mt-20">
   <div class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
     <div class="flex max-w-3xl flex-col space-y-8">
-      <%= for _ <- 1..10 do %>
+      <%= for post <- @posts do %>
         <article class="md:grid md:grid-cols-4 md:items-baseline">
           <div class="md:col-span-3 relative flex flex-col items-start">
-            <h2 class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
+            <h2 class="text-xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
               <div class="absolute -inset-y-6 -inset-x-4 z-0 scale-95 bg-zinc-50 opacity-0 transition dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl">
               </div>
               <a
-                href="/posts/crafting-a-design-system-for-a-multiplanetary-future"
+                href={"/posts/#{post.id}"}
                 class="hover:text-teal-400 transition"
               >
                 <span class="relative z-10">
-                  Crafting a design system for a multiplanetary future
+                  <%= post.title %>
                 </span>
               </a>
             </h2>
@@ -32,14 +29,14 @@
               <span class="absolute inset-y-0 left-0 flex items-center" aria-hidden="true"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span></span>September 5, 2022
             </time>
             <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-              Most companies try to stay ahead of the curve when it comes to visual design, but for Planetaria we needed to create a brand that would still inspire us 100 years from now when humanity has spread across our entire solar system.
+              <%= post.description %>
             </p>
           </div>
           <time
             class="mt-1 hidden md:block relative z-10 order-first mb-3 flex items-center text-sm text-zinc-400 dark:text-zinc-500"
             datetime="2022-09-05"
           >
-            September 5, 2022
+            <%= date_for_humans(post.date) %>
           </time>
         </article>
       <% end %>

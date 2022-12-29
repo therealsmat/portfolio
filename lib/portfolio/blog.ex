@@ -15,6 +15,6 @@ defmodule Portfolio.Blog do
   @tags @posts |> Enum.flat_map(& &1.tags) |> Enum.uniq() |> Enum.sort()
 
   # And finally export them
-  def all_posts, do: @posts
+  def all_posts, do: @posts |> Enum.reject(&(&1.published == false))
   def all_tags, do: @tags
 end
