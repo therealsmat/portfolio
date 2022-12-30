@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content={csrf_token_value()} />
     <title>Tosin Soremekun &middot; <%= assigns[:page_title] || "" %></title>
+    <link rel="icon" type="image/x-icon" href={Routes.static_path(@conn, "/images/favicon.ico")}>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
     <script
       defer
