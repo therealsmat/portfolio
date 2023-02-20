@@ -36,4 +36,4 @@ Programming languages have been known to make distinct trade-offs between runtim
 
 There are also libraries which are good bases for applications and can be extended. Such libraries are: [Plug](https://hexdocs.pm/plug/readme.html) webserver which the phoenix framework is built upon and [Ecto](https://hexdocs.pm/ecto/getting-started.html) database wrapper for elixir.
 
-As previously mentioned in this article, Elixir despite the name is no magic or silver bullet. It has its own flaws just like anything else. *But*, it is the **simplest**, yet **robust** tool I have seen in the market for building **highly reliable & scalable** backend systems with solid **guarantees**. And that is why I love Elixir.
+As previously mentioned in this article, Elixir despite the name is no magic or silver bullet. It has its own flaws just like anything else. *But*, it is the **simplest**, yet **robust** tool I have seen in the market for building **highly reliable & scalable** backend systems with solid **guarantees**.
