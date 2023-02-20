@@ -114,7 +114,7 @@
   --tw-prose-quote-borders: #e4e4e7;
   --tw-prose-captions: #a1a1aa;
   --tw-prose-code: #3f3f46;
-  --tw-prose-code-bg: hsla(240,5%,84%,.2);
+  --tw-prose-code-bg: hsla(240, 1%, 66%, 0.2);
   --tw-prose-pre-code: #f4f4f5;
   --tw-prose-pre-bg: #011627;
   --tw-prose-pre-border: transparent;
@@ -163,6 +163,12 @@
   --tw-prose-pre-border: var(--tw-prose-invert-pre-border);
   --tw-prose-th-borders: var(--tw-prose-invert-th-borders);
 --tw-prose-td-borders: var(--tw-prose-invert-td-borders);
+}
+
+code {
+  background-color: var(--tw-prose-code-bg);
+  padding: 2px 5px;
+  border-radius: 7px;
 }
 
 .prose :where(img):not(:where([class~=not-prose] *)) {
