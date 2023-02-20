@@ -5,7 +5,11 @@
   description: "Small tips for better performance, or how to not crash your GenServer"
 }
 ---
-GenServers in Elixir (or Erlang) provides nice abstractions for working with processes with good guarantees. Despite these, one should be careful not to misuse them as it can become a major bottleneck or even DoS the entire application. Imagine the following scenario; 
+GenServers in Elixir (or Erlang) provides nice abstractions for working with processes with good guarantees. Despite these, one should be careful not to misuse them as it can become a major bottleneck or even DoS the entire application.
+
+In this article, I'll assume you're comfortable working with Elixir, and are familiar with GenServers. We'll also mention Protobuf, and RabbitMQ although no previous experience of any is required to follow along.
+
+Imagine the following scenario; 
 
 ```elixir
 defmodule NotificationServer do
