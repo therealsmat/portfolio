@@ -17,4 +17,5 @@ defmodule Portfolio.Blog do
   # And finally export them
   def all_posts, do: @posts |> Enum.reject(&(&1.published == false))
   def all_tags, do: @tags
+  def find_by_id(id), do: Enum.find(all_posts(), &(&1.id == id))
 end

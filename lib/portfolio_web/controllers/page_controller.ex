@@ -16,8 +16,8 @@ defmodule PortfolioWeb.PageController do
     render(conn, "posts.html", posts: posts)
   end
 
-  def post(conn, _params) do
-    render(conn, "post.html", post: Portfolio.Blog.all_posts() |> List.first())
+  def post(conn, params) do
+    render(conn, "post.html", post: Portfolio.Blog.find_by_id(params["id"]))
   end
 
   def uses(conn, _params) do
