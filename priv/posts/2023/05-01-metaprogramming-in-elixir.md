@@ -5,7 +5,7 @@
   description: "A use case of loading enum values dyamically at compile time with a simple macro."
 }
 ---
-Metaprogramming in Elixir is one of those concepts that everyone like, but difficult to find a reasonable use case for in our day-to-day code. It is most often used by library authors and might look a bit weird at first, but quite useful in practice. In this article, I'll cover one case study where using macros was benefitial for us at work. The example is different from the real use in our codebase, but the idea is the same.
+Metaprogramming in Elixir is one of those concepts that gets everyone excited, but difficult to find a reasonable use case for in our day-to-day code. It is most often used by library authors and might look a bit weird at first, but quite useful in practice. In this article, I'll cover one case study where using macros was benefitial for us at work. The example is different from the real use in our codebase, but the idea is the same.
 
 ## Working with Enums
 There is generally no consensus when it comes to working in `Enums` (constants not collections) in elixir. Maybe with Ecto, one could use the `EctoEnum` module but for projects that do not persist data to a "DB", bringing in an Ecto dependency is not ideal, assuming it works.
