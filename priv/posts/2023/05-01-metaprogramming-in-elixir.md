@@ -8,9 +8,9 @@
 Metaprogramming in Elixir is one of those concepts that gets everyone excited, but difficult to find a reasonable use case for in our day-to-day code. It is most often used by library authors and might look a bit weird at first, but quite useful in practice. In this article, I'll cover one case study where using macros was benefitial for us at work. The example is different from the real use in our codebase, but the idea is the same.
 
 ## Working with Enums
-There is generally no consensus when it comes to working in `Enums` (constants not collections) in elixir. Maybe with Ecto, one could use the `EctoEnum` module but for projects that do not persist data to a "DB", bringing in an Ecto dependency is not ideal, assuming it works.
+There is generally no consensus when it comes to working with `Enums` (constants not collections) in elixir. Maybe with Ecto, one could use the `EctoEnum` module but for projects that do not persist data to a "DB", bringing in an Ecto dependency is not ideal, assuming it works.
 
-Fortunately, there's a simple and intuitive [library](https://hexdocs.pm/enum_type/readme.html) I always reach out for in these cases. It lets you define enums which you can then use as a regular elixir module. For more information, please checkout the documentation [here](https://hexdocs.pm/enum_type/readme.html).
+Fortunately, there's a simple and intuitive [library](https://hexdocs.pm/enum_type/readme.html) I always reach out for. It lets you define enums which you can then use as a regular elixir module.
 
 ```elixir
 defmodule MyApp.Enum do
@@ -24,7 +24,7 @@ defmodule MyApp.Enum do
 end
 ```
 
-As mentioned above, all enums will be converted to regular modules and each value has a `.value()` function that can be used to retrive the value (no pun intended).
+All enums will be converted to regular modules and each value has a `.value()` function that returns, well, the value.
 
 ```elixir
 defmodule MyApp.GameHandler do
@@ -36,9 +36,8 @@ end
 ```
 
 ## The problem
-What happens when we have multiple enums and these enums have to be combined in some way to produce a value defined in another enum? Let's look at the following example;
+What happens when we have multiple enums and these enums have to be combined in some way to produce a value defined in another enum? Let's look at the following example:
 
-Let's take an example;
 ```elixir
 def MyApp.Enum do
   use EnumType
@@ -74,7 +73,7 @@ It is clear that as more and more colors need to be combined, the code becomes v
 ## Solution
 Ideally, we should be able to load multiple enums from the same namespace, assign them to a module attribute and prefix it with a sensible name. This should be done at compile time so that there is no runtime penalty and as long as it compiles, we're certain it works. This is where metaprogramming comes into the picture. In Elixir, we can achieve this with the help of macros.
 
-Modifying the previous example, we should have something like;
+Modifying the previous example, we should have something like:
 
 ```elixir
 def MyApp.ColorPalette do
@@ -129,4 +128,4 @@ defmodule MyApp.EnumHelpers
 end
 ```
 
-Metaprogramming is a powerful concept, and while many in the industry advise against it (ab)use, it can significantly help reduce boilerplate code.
+Metaprogramming is a powerful concept and while many in the industry advise against it (ab)use, it can significantly help reduce boilerplate code.
