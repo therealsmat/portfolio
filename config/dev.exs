@@ -1,7 +1,7 @@
 import Config
 
 config :portfolio, PortfolioWeb.Endpoint,
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {127, 0, 0, 1}, port: 4600],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
