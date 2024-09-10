@@ -5,7 +5,7 @@ defmodule Portfolio.MixProject do
     [
       app: :portfolio,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -20,7 +20,7 @@ defmodule Portfolio.MixProject do
   def application do
     [
       mod: {Portfolio.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :inets]
     ]
   end
 
