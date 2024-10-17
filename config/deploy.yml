@@ -1,0 +1,30 @@
+service: portfolio
+
+image: onezerospace/portfolio
+
+servers:
+  web:
+    - 95.216.219.209
+
+proxy:
+  ssl: true
+  host: tosinsoremekun.com
+  app_port: 3003
+
+registry:
+  server: ghcr.io
+  username: therealsmat
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+builder:
+  arch: amd64
+  remote: ssh://root@95.216.219.209
+
+env:
+  clear:
+    PORT: 3003
+    MIX_ENV: prod
+    PHX_HOST: tosinsoremekun.com
+  secret:
+    - SECRET_KEY_BASE
