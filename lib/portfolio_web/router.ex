@@ -20,6 +20,7 @@ defmodule PortfolioWeb.Router do
     get "/", PageController, :index
     get "/posts", PageController, :posts
     get "/posts/:id", PageController, :post
+    get "/up", PageController, :health_check
   end
 
   # Other scopes may use custom stacks.

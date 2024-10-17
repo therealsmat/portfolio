@@ -6,6 +6,10 @@ defmodule PortfolioWeb.PageController do
     render(conn, "index.html")
   end
 
+  def health_check(conn, _params) do
+    send_resp(conn, 200, "ok")
+  end
+
   def posts(conn, _params) do
     posts =
       Portfolio.Blog.all_posts()
