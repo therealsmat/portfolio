@@ -1,30 +1,32 @@
+<% require "dotenv"; Dotenv.load(".env") %>
+
 service: portfolio
 
 image: onezerospace/portfolio
 
 servers:
   web:
-    - 95.216.219.209
+    - <%= ENV["SERVER_IP"] %>
 
 proxy:
   ssl: true
-  host: tosinsoremekun.com
-  app_port: 3003
+  host: <%= ENV["PHX_HOST"] %>
+  app_port: <%= ENV["APP_PORT"] %>
 
 registry:
   server: ghcr.io
-  username: therealsmat
+  username: <%= ENV["DOCKER_REGISTRY_USERNAME"] %>
   password:
     - KAMAL_REGISTRY_PASSWORD
 
 builder:
   arch: amd64
-  remote: ssh://root@95.216.219.209
+  remote: ssh://root@<%= ENV["SERVER_IP"] %>
 
 env:
   clear:
-    PORT: 3003
+    PORT: <%= ENV["APP_PORT"] %>
     MIX_ENV: prod
-    PHX_HOST: tosinsoremekun.com
+    PHX_HOST: <%= ENV["PHX_HOST"] %>
   secret:
     - SECRET_KEY_BASE
