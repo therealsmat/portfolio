@@ -33,7 +33,9 @@ As an example, encoding the text "hello world" as a vector could produce this:
 ```
 
 Ofcourse, the size and output will depends on the model used for the encoding. Think of size as columns in a matrix.
-But again, this is not a deep dive about vectors. There are numerous books and articles better suited for that.
+
+Vectors can be sparse or dense. A sparse vector usually contains many zero values which make them more computationally efficient than the dense vectors where all values are non-zero.
+The benefits of dense vectors is that they can capture more nuances better than sparse vectors.
 
 At this point, we have established two things:
 - We need to convert our list of books from strings (or maps) to vector embedding;
@@ -200,8 +202,10 @@ to_vector =
 ```
 
 There's a lot going on here so let's unpack it.
-- First we load a model from hugging face
-- [TO BE CONTINUED]
+- First we load a suitable model from hugging face, as well as its tokenizer. A tokenizer is necessary to convert the input texts into tokens and then numerical representations in a way the model expects.
+- Next we create a text embedding serving. A serving is a ready to use pipeline for efficiently processing inputs, performing model inference and producing outputs. It also supports batching so that multiple requests can be batched before sending to the GPU, which can be a huge performance boost.
+The configuration above specifies that we want to wait for 16 requests or 50ms to elapse (whichever comes first) before running the inference. And since it is a process, we need to start it before using it. In a production application, this should be added to your supervision tree.
+- Finally, we have a `to_vector./1` function which is just a wrapper for generating our embedding using the model.
 
 Next, we need to create a collection and seed our database with the list of books. Create a new cell and add the following code:
 ```elixir
@@ -221,7 +225,9 @@ end)
 |> then(&DB.write("my_books", &1))
 ```
 
-[SOME DESCRIPTION ABOUT WHAT WE DID HERE]
+We created a collection called `my_books` with default `dense vector` presets.
+We have set the size to match the vector dimension of the model, which in this case is 384, and also set the distance to `Cosine`.
+We won't dive deep on details about why `Cosine` was picked or what other values there are but they are generally used for texts.
 
 Finally, lets test our search. I am interested in the top 3 `Comical fiction series` books.
 ```elixir
@@ -276,6 +282,5 @@ We should get a result like this:
 Each result comes with a score sorted in order of relevancy and some of them do not even contain our keywords, but still returns relevant results.
 
 ## Conclusion
-In practice, you'll want to add other properties and not just description but the idea should be similar.
-Also, vector databases are not without their downsides such as storage costs among others.
-But they provide possibility to store unstructured data as vectors which unlock certain features such as semantic search.
+We have only scratched the surface of what's possible with vector databases and machine learning, and also using them directly in Elixir. It is worth mentioning that they do introduce additional layers of complexity, but they offer richer experiences to users of our applications.
+The journey into semantic search is a step towards building smarter, more responsive applications that can adapt to the nuanced needs of users in an ever-evolving digital landscape.
