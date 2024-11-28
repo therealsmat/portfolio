@@ -3,7 +3,7 @@ defmodule PortfolioWeb.PageController do
   require Logger
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    render(conn, "index.html", meta: [])
   end
 
   def health_check(conn, _params) do
@@ -17,11 +17,20 @@ defmodule PortfolioWeb.PageController do
         Map.take(post, [:id, :title, :description, :date, :published])
       end)
 
-    render(conn, "posts.html", posts: posts)
+    render(conn, "posts.html", posts: posts, meta: [])
   end
 
   def post(conn, params) do
-    render(conn, "post.html", post: Portfolio.Blog.find_by_id(params["id"]))
+    post = Portfolio.Blog.find_by_id(params["id"])
+
+    render(conn, "post.html",
+      post: post,
+      meta: [
+        description: post.description,
+        author: post.author,
+        keywords: Enum.join(post.tags, ", ")
+      ]
+    )
   end
 
   def uses(conn, _params) do
