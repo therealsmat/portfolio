@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<% style = Portfolio.CodeStyle.style() %> <!DOCTYPE html>
 <html lang="en" class="h-full antialiased">
   <head>
     <meta charset="utf-8" />
@@ -14,6 +14,9 @@
       rel="stylesheet"
     />
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
+    <style>
+      <%= Makeup.stylesheet(style, "makeup") %>
+    </style>
     <script
       defer
       phx-track-static
