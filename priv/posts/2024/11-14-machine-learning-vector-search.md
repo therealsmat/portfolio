@@ -1,7 +1,7 @@
 %{
-  title: "Machine Learning in ELixir: Semantic Search",
+  title: "Machine Learning in Elixir: Semantic Search",
   author: "Tósìn Soremekun",
-  tags: ~w(machine-learning elixir erlang otp bumblebee transformers huggingface semantic-search vector-embedding vector-databases),
+  tags: ["machine learning", "elixir", "erlang", "otp", "bumblebee", "transformers", "huggingface", "semantic search", "vector embedding", "vector databases"],
   description: "Exploring machine learning in elixir using semantic search, vector embedding and the qdrant database."
 }
 ---

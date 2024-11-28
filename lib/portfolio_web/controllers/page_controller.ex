@@ -21,7 +21,16 @@ defmodule PortfolioWeb.PageController do
   end
 
   def post(conn, params) do
-    render(conn, "post.html", post: Portfolio.Blog.find_by_id(params["id"]))
+    post = Portfolio.Blog.find_by_id(params["id"])
+
+    render(conn, "post.html",
+      post: post,
+      meta: [
+        description: post.description,
+        author: post.author,
+        keywords: Enum.join(post.tags, ", ")
+      ]
+    )
   end
 
   def uses(conn, _params) do
