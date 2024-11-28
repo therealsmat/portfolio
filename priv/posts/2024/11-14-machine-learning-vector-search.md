@@ -5,7 +5,7 @@
   description: "Exploring machine learning in elixir using semantic search, vector embedding and the qdrant database."
 }
 ---
-One of the most widely talked about subjects on the internet these days is Artifical Intelligence / Machine Learning and how it will finally get rid of developers. Yikes!
+One of the most widely talked about subjects on the internet these days is Artificial Intelligence / Machine Learning and how it will finally get rid of developers. Yikes!
 If we ignore the latter and just focus on the subject itself, we'll find that there are numerous interesting ways our traditional applications can benefit from it.
 Take search for example: I am looking to buy a book I found at a friend's place, is it fair that I have to remember the title in sequence? Or memorize the author's first and last name?
 What if the title is "A comedic science fiction series" and for some reason, I remember it as "Comical fictional series"? Surely the search engine should be smart enough to help me here.
@@ -71,8 +71,8 @@ services:
 ```
 and then run `docker compose up -d`. With any luck, qdrant should be running on port `6333` and you can view the dashboard at `http://localhost:6333/dashboard`.
 
-Now that the DB is up and running, we need a small abstraction to access it conviniently and Qdrant database exposes an http api on port `6333` for all operations.
-Create a new elixir cell in livebook and add the following code:
+Now that the DB is up and running, we need a small abstraction to access it conveniently and Qdrant database exposes an http api on port `6333` for all operations.
+Create a new Elixir cell in livebook and add the following code:
 ```elixir
 defmodule DB do
   @db_config [
@@ -101,80 +101,88 @@ Enter the following in a new cell:
 ```elixir
 books = [
   %{
-    title: "The Hunger Games",
+    name: "The Time Machine",
+    description: "A man travels through time and witnesses the evolution of humanity.",
+    author: "H.G. Wells",
+    year: 1895
+  },
+  %{
+    name: "Ender's Game",
+    description: "A young boy is trained to become a military leader in a war against an alien race.",
+    author: "Orson Scott Card",
+    year: 1985
+  },
+  %{
+    name: "Brave New World",
+    description: "A dystopian society where people are genetically engineered and conditioned to conform to a strict social hierarchy.",
+    author: "Aldous Huxley",
+    year: 1932
+  },
+  %{
+    name: "The Hitchhiker's Guide to the Galaxy",
+    description: "A comedic science fiction series following the misadventures of an unwitting human and his alien friend.",
+    author: "Douglas Adams",
+    year: 1979
+  },
+  %{
+    name: "Dune",
+    description: "A desert planet is the site of political intrigue and power struggles.",
+    author: "Frank Herbert",
+    year: 1965
+  },
+  %{
+    name: "Foundation",
+    description: "A mathematician develops a science to predict the future of humanity and works to save civilization from collapse.",
+    author: "Isaac Asimov",
+    year: 1951
+  },
+  %{
+    name: "Snow Crash",
+    description: "A futuristic world where the internet has evolved into a virtual reality metaverse.",
+    author: "Neal Stephenson",
+    year: 1992
+  },
+  %{
+    name: "Neuromancer",
+    description: "A hacker is hired to pull off a near-impossible hack and gets pulled into a web of intrigue.",
+    author: "William Gibson",
+    year: 1984
+  },
+  %{
+    name: "The War of the Worlds",
+    description: "A Martian invasion of Earth throws humanity into chaos.",
+    author: "H.G. Wells",
+    year: 1898
+  },
+  %{
+    name: "The Hunger Games",
+    description: "A dystopian society where teenagers are forced to fight to the death in a televised spectacle.",
     author: "Suzanne Collins",
-    description: "WINNING MEANS FAME AND FORTUNE.LOSING MEANS CERTAIN DEATH.THE HUNGER GAMES HAVE BEGUN. . . .In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. The Capitol is harsh and cruel and keeps the districts in line by forcing them all to send one boy and once girl between the ages of twelve and eighteen to participate in the annual Hunger Games, a fight to the death on live TV.Sixteen-year-old Katniss Everdeen regards it as a death sentence when she steps forward to take her sister's place in the Games. But Katniss has been close to dead before—and survival, for her, is second nature. Without really meaning to, she becomes a contender. But if she is to win, she will have to start making choices that weight survival against humanity and life against love.",
-    rating: 4.33,
-    language: "English"
+    year: 2008
   },
   %{
-    title: "Harry Potter and the Order of the Phoenix",
-    author: "J.K. Rowling, Mary GrandPré (Illustrator)",
-    description: "There is a door at the end of a silent corridor. And it’s haunting Harry Pottter’s dreams. Why else would he be waking in the middle of the night, screaming in terror?Harry has a lot on his mind for this, his fifth year at Hogwarts: a Defense Against the Dark Arts teacher with a personality like poisoned honey; a big surprise on the Gryffindor Quidditch team; and the looming terror of the Ordinary Wizarding Level exams. But all these things pale next to the growing threat of He-Who-Must-Not-Be-Named - a threat that neither the magical government nor the authorities at Hogwarts can stop.As the grasp of darkness tightens, Harry must discover the true depth and strength of his friends, the importance of boundless loyalty, and the shocking price of unbearable sacrifice.His fate depends on them all.",
-    rating: 4.50,
-    language: "English"
+    name: "The Andromeda Strain",
+    description: "A deadly virus from outer space threatens to wipe out humanity.",
+    author: "Michael Crichton",
+    year: 1969
   },
   %{
-    title: "To Kill a Mockingbird",
-    author: "Harper Lee",
-    description: "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it, To Kill A Mockingbird became both an instant bestseller and a critical success when it was first published in 1960. It went on to win the Pulitzer Prize in 1961 and was later made into an Academy Award-winning film, also a classic.Compassionate, dramatic, and deeply moving, To Kill A Mockingbird takes readers to the roots of human behavior - to innocence and experience, kindness and cruelty, love and hatred, humor and pathos. Now with over 18 million copies in print and translated into forty languages, this regional story by a young Alabama woman claims universal appeal. Harper Lee always considered her book to be a simple love story. Today it is regarded as a masterpiece of American literature.",
-    rating: 4.28,
-    language: "English"
+    name: "The Left Hand of Darkness",
+    description: "A human ambassador is sent to a planet where the inhabitants are genderless and can change gender at will.",
+    author: "Ursula K. Le Guin",
+    year: 1969
   },
   %{
-    title: "Pride and Prejudice",
-    author: "Jane Austen, Anna Quindlen (Introduction)",
-    description: "Alternate cover edition of ISBN 9780679783268Since its immediate success in 1813, Pride and Prejudice has remained one of the most popular novels in the English language. Jane Austen called this brilliant work \"her own darling child\" and its vivacious heroine, Elizabeth Bennet, \"as delightful a creature as ever appeared in print.\" The romantic clash between the opinionated Elizabeth and her proud beau, Mr. Darcy, is a splendid performance of civilized sparring. And Jane Austen's radiant wit sparkles as her characters dance a delicate quadrille of flirtation and intrigue, making this book the most superb comedy of manners of Regency England.",
-    rating: 4.26,
-    language: "English"
-  },
-  %{
-    title: "Twilight",
-    author: "Stephenie Meyer",
-    description: "\"About three things I was absolutely positive.\n\nFirst, Edward was a vampire.\n\nSecond, there was a part of him—and I didn't know how dominant that part might be—that thirsted for my blood.\n\nAnd third, I was unconditionally and irrevocably in love with him.\n\nDeeply seductive and extraordinarily suspenseful, Twilight is a love story with bite.\"",
-    rating: 3.60,
-    language: "English"
-  },
-  %{
-    title: "The Book Thief",
-    author: "Markus Zusak (Goodreads Author)",
-    description: "Librarian's note: An alternate cover edition can be found hereIt is 1939. Nazi Germany. The country is holding its breath. Death has never been busier, and will be busier still.By her brother's graveside, Liesel's life is changed when she picks up a single object, partially hidden in the snow. It is The Gravedigger's Handbook, left behind there by accident, and it is her first act of book thievery. So begins a love affair with books and words, as Liesel, with the help of her accordian-playing foster father, learns to read. Soon she is stealing books from Nazi book-burnings, the mayor's wife's library, wherever there are books to be found.But these are dangerous times. When Liesel's foster family hides a Jew in their basement, Liesel's world is both opened up, and closed down.In superbly crafted writing that burns with intensity, award-winning author Markus Zusak has given us one of the most enduring stories of our time.(Note: this title was not published as YA fiction)",
-    rating: 4.37,
-    language: "English"
-  },
-  %{
-    title: "Animal Farm",
-    author: "George Orwell, Russell Baker (Preface), C.M. Woodhouse (Introduction)",
-    description: "Librarian's note: There is an Alternate Cover Edition for this edition of this book here.A farm is taken over by its overworked, mistreated animals. With flaming idealism and stirring slogans, they set out to create a paradise of progress, justice, and equality. Thus the stage is set for one of the most telling satiric fables ever penned –a razor-edged fairy tale for grown-ups that records the evolution from revolution against tyranny to a totalitarianism just as terrible. When Animal Farm was first published, Stalinist Russia was seen as its target. Today it is devastatingly clear that wherever and whenever freedom is attacked, under whatever banner, the cutting clarity and savage comedy of George Orwell’s masterpiece have a meaning and message still ferociously fresh.",
-    rating: 3.95,
-    language: "English"
-  },
-  %{
-    title: "The Chronicles of Narnia",
-    author: "C.S. Lewis, Pauline Baynes (Illustrator)",
-    description: "Journeys to the end of the world, fantastic creatures, and epic battles between good and evil—what more could any reader ask for in one book? The book that has it all is The Lion, the Witch and the Wardrobe, written in 1949 by Clive Staples Lewis. But Lewis did not stop there. Six more books followed, and together they became known as The Chronicles of Narnia.For the past fifty years, The Chronicles of Narnia have transcended the fantasy genre to become part of the canon of classic literature. Each of the seven books is a masterpiece, drawing the reader into a land where magic meets reality, and the result is a fictional world whose scope has fascinated generations.This edition presents all seven books—unabridged—in one impressive volume. The books are presented here in chronlogical order, each chapter graced with an illustration by the original artist, Pauline Baynes. Deceptively simple and direct, The Chronicles of Narnia continue to captivate fans with adventures, characters, and truths that speak to readers of all ages, even fifty years after they were first published.",
-    rating: 4.26,
-    language: "English"
-  },
-  %{
-    title: "J.R.R. Tolkien 4-Book Boxed Set: The Hobbit and The Lord of the Rings",
-    author: "J.R.R. Tolkien",
-    description: "This four-volume, boxed set contains J.R.R. Tolkien's epic masterworks The Hobbit and the three volumes of The Lord of the Rings (The Fellowship of the Ring, The Two Towers, and The Return of the King).In The Hobbit, Bilbo Baggins is whisked away from his comfortable, unambitious life in Hobbiton by the wizard Gandalf and a company of dwarves. He finds himself caught up in a plot to raid the treasure hoard of Smaug the Magnificent, a large and very dangerous dragon.The Lord of the Rings tells of the great quest undertaken by Frodo Baggins and the Fellowship of the Ring: Gandalf the wizard; the hobbits Merry, Pippin, and Sam; Gimli the dwarf; Legolas the elf; Boromir of Gondor; and a tall, mysterious stranger called Strider. J.R.R. Tolkien's three volume masterpiece is at once a classic myth and a modern fairy tale—a story of high and heroic adventure set in the unforgettable landscape of Middle-earth",
-    rating: 4.60,
-    language: "English"
-  },
-  %{
-    title: "Gone with the Wind",
-    author: "Margaret Mitchell",
-    description: "Scarlett O'Hara, the beautiful, spoiled daughter of a well-to-do Georgia plantation owner, must use every means at her disposal to claw her way out of the poverty she finds herself in after Sherman's March to the Sea.",
-    rating: 4.30,
-    language: "English"
+    name: "The Three-Body Problem",
+    description: "Humans encounter an alien civilization that lives in a dying system.",
+    author: "Liu Cixin",
+    year: 2008
   }
 ]
 ```
 
-Remember from previous discussion that we need to convert our books list to a vector embedding using a machine learning model. Luckily, we don't have to train a model from scratch and we can take advantage of millions of pretrained models published to huggingface.
-Hugging face can be thought of as github for machine learning engineers and data scientists. To load these models in elixir, we'll use [Bumblebee](https://hexdocs.pm/bumblebee/Bumblebee.html) which we already installed as a dependency.
+Remember from previous discussion that we need to convert our books list to a vector embedding using a machine learning model. Luckily, we don't have to train a model from scratch and we can take advantage of millions of pretrained models published to [huggingface](https://huggingface.co/models).
+To load these models in Elixir, we'll use [Bumblebee](https://hexdocs.pm/bumblebee/Bumblebee.html) which we already installed as a dependency.
 Create a new cell and add the following code:
 
 ```elixir
