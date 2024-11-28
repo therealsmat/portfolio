@@ -3,7 +3,7 @@ defmodule PortfolioWeb.PageController do
   require Logger
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    render(conn, "index.html", meta: [])
   end
 
   def health_check(conn, _params) do
@@ -17,7 +17,7 @@ defmodule PortfolioWeb.PageController do
         Map.take(post, [:id, :title, :description, :date, :published])
       end)
 
-    render(conn, "posts.html", posts: posts)
+    render(conn, "posts.html", posts: posts, meta: [])
   end
 
   def post(conn, params) do
