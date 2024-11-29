@@ -197,6 +197,11 @@ code {
     border-radius: 7px;
 }
 
+code.yml {
+    background: none;
+    color: #e7e9db;
+}
+
 .prose :where(img):not(:where([class~="not-prose"] *)) {
     border-radius: 1.5rem;
 }
@@ -252,8 +257,36 @@ ul {
     border-radius: 0.5rem;
     padding: 1rem;
     overflow-x: auto;
+    max-height: 400px;
     border: 1px solid;
     border-color: var(--tw-prose-pre-border);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-height: thin;
+    scrollbar-color: #888 #4f424c;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 1px;
+    height: 1px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #4f424c;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #4f424c;
 }
 
 /*

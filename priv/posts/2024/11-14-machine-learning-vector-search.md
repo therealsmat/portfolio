@@ -186,6 +186,7 @@ To load these models in Elixir, we'll use [Bumblebee](https://hexdocs.pm/bumbleb
 Create a new cell and add the following code:
 
 ```elixir
+
 {:ok, model} = Bumblebee.load_model({:hf, "intfloat/e5-small-v2"})
 {:ok, tokenizer} = Bumblebee.load_tokenizer({:hf, "intfloat/e5-small-v2"})
 

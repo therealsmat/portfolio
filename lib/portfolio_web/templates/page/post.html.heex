@@ -31,12 +31,10 @@
           datetime="2022-09-05"
           class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500"
         >
-          <span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">
-            <%= date_for_humans(
-  @post.date
-) %>
-          </span>
+          <span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span>
+          <span class="ml-3"><%= date_for_humans(@post.date) %></span>
         </time>
+        <span class="text-zinc-500 mt-2"><%= @reading_time %> minutes read</span>
       </header>
       <div class="mt-8 text-sm prose dark:prose-invert" style="text-align: justify">
         <%= raw(@post.body) %>

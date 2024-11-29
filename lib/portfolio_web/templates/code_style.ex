@@ -42,7 +42,7 @@ defmodule Portfolio.CodeStyle do
   @style_struct Style.make_style(
                   short_name: "code_style_dark",
                   long_name: "Code Style",
-                  background_color: "#011627",
+                  background_color: "transparent",
                   highlight_color: "#4f424c",
                   styles: @styles
                 )
