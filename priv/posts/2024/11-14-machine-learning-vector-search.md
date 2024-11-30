@@ -18,14 +18,14 @@ To follow along, you'll need:
 
 ## Semantic Search
 Unlike lexical or full-text search, semantic search interprets the meaning of the phrases and tries to understand the context of the search query.
-So it generally results in better search experiences and information discovery since users can find relevant results that were not even intended.
+It generally results in better search experiences and information discovery since users can find relevant results that were not even intended.
 So how does it work? Unstructured data such as text, images, and videos are converted into vector embeddings using suitable machine learning models. Vector embeddings are just numerical representations of data points in a high-dimensional space.
 Think of data points as rows (not technically correct, but paints a picture), and high-dimensional as data with a large number of attributes.
 These definitions are not super important for this article, so we won't dive deep into them. All we need to know is that for semantic search to work, we must convert our unstructured data, such as the list of books in the library, into vector embeddings.
 
 ## What is a vector?
 At its core, a vector is just a numeric representation of data, usually as multidimensional arrays.
-They are structured and provide a mathematically sound way to process data and find relationships between them.
+They are structured and provide a mathematically sound way to process information and find relationships between them.
 As an example, encoding the text "hello world" as a vector could produce this:
 ```elixir
 [-0.0769561156630516, 0.041262976825237274, -0.015120134688913822, 0.10748669505119324,
@@ -39,7 +39,7 @@ The benefit of dense vectors is that they can capture nuances better (e.g., iden
 
 At this point, we have established two things:
 - We need to convert our list of books from strings (or maps) to vector embedding;
-- we need to store this vector embedding in a database.
+- We need to store these embeddings in a way that makes them easily queryable.
 
 ## Storing vector embedding
 The choice of storage solutions for vector embeddings depends on a number of factors, not purely technical ones.
