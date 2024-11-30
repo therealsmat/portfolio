@@ -5,7 +5,7 @@
   description: "Exploring machine learning in elixir using semantic search, vector embedding and the qdrant database."
 }
 ---
-One of the most widely talked about subjects on the internet these days is Artificial Intelligence / Machine Learning and how it will finally get rid of developers. Yikes!
+One of the most widely discussed subject on the internet these days is Artificial Intelligence / Machine Learning and how it will finally be the of developers. Yikes!
 If we ignore the latter and just focus on the subject itself, we'll find that there are numerous interesting ways our traditional applications can benefit from it.
 Take search for example: I am looking to buy a book I found at a friend's place, is it fair that I have to remember the title in sequence? Or memorize the author's first and last name?
 What if the title is "A comedic science fiction series" and for some reason, I remember it as "Comical fictional series"? Surely the search engine should be smart enough to help me here.
