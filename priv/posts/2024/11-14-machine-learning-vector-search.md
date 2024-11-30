@@ -2,51 +2,51 @@
   title: "Machine Learning in Elixir: Semantic Search",
   author: "Tósìn Soremekun",
   tags: ["machine learning", "elixir", "erlang", "otp", "bumblebee", "transformers", "huggingface", "semantic search", "vector embedding", "vector databases"],
-  description: "Exploring machine learning in elixir using semantic search, vector embedding and the qdrant database."
+  description: "Exploring Machine Learning in Elixir Using Semantic Search, Vector Embedding, and the Qdrant Database."
 }
 ---
-One of the most widely talked about subjects on the internet these days is Artificial Intelligence / Machine Learning and how it will finally get rid of developers. Yikes!
+One of the most widely discussed subjects on the internet these days is AI/ML and how it might finally mark the end of developers. Yikes!
 If we ignore the latter and just focus on the subject itself, we'll find that there are numerous interesting ways our traditional applications can benefit from it.
-Take search for example: I am looking to buy a book I found at a friend's place, is it fair that I have to remember the title in sequence? Or memorize the author's first and last name?
-What if the title is "A comedic science fiction series" and for some reason, I remember it as "Comical fictional series"? Surely the search engine should be smart enough to help me here.
+Take search, for example: I am looking to buy a book I found at a friend's place. Is it fair that I have to remember the title in sequence? Or memorize the author's first and last name?
+What if the title is "A comedic science fiction series" and for some reason, I remember it as "Comical fictional series"? Surely, the search engine should be smart enough to help me here.
 
 In this article, we'll examine semantic search with the case study of an online library that allows users to search for their favorite books. Then we'll discuss how it significantly improves user experience when compared to traditional full-text search.
 To follow along, you'll need:
 - Elixir `1.15+` and Erlang `OTP 26+` installed on your machine.
 - Livebook. All code examples will be executed in livebook.
-- A running installing of qdrant vector database. More about this a bit later.
+- A running installation of qdrant vector database. More about this a bit later.
 
 ## Semantic Search
 Unlike lexical or full-text search, semantic search interprets the meaning of the phrases and tries to understand the context of the search query.
-So it generally results in better search experiences and information discovery since users can find relevant results that were not even intended.
-So how does it work? Unstructured data such as text, images, video etc are converted in vector embedding with suitable machine learning models. vector embedding are just numerical
-representations of data points in a high-dimensional space. Think of data points as rows (not technically correct, but paints a picture), and high-dimensional as data with a large number of attributes.
-These definitions are not super important for this article, so we won't dive deep into them. All we need to know is that for semantic search to work, we must convert our unstructured data, list of books in the library, to vector embedding.
+It generally results in better search experiences and information discovery since users can find relevant results that were not even intended.
+So how does it work? Unstructured data such as text, images, and videos are converted into vector embeddings using suitable machine learning models. Vector embeddings are just numerical representations of data points in a high-dimensional space.
+Think of data points as rows (not technically correct, but paints a picture), and high-dimensional as data with a large number of attributes.
+These definitions are not super important for this article, so we won't dive deep into them. All we need to know is that for semantic search to work, we must convert our unstructured data, such as the list of books in the library, into vector embeddings.
 
 ## What is a vector?
 At its core, a vector is just a numeric representation of data, usually as multidimensional arrays.
-They are structured and provide a mathematically sound way to process data and find relationships between them.
+They are structured and provide a mathematically sound way to process information and find relationships between them.
 As an example, encoding the text "hello world" as a vector could produce this:
 ```elixir
 [-0.0769561156630516, 0.041262976825237274, -0.015120134688913822, 0.10748669505119324,
  0.006940742023289204, 0.015106401406228542, -0.0031795059330761433, ...]
 ```
 
-Ofcourse, the size and output will depends on the model used for the encoding. Think of size as columns in a matrix.
+Of course, the size and output will depend on the model used for encoding.
 
-Vectors can be sparse or dense. A sparse vector usually contains many zero values which make them more computationally efficient than the dense vectors where all values are non-zero.
-The benefits of dense vectors is that they can capture more nuances better than sparse vectors.
+Vectors can be sparse or dense. A sparse vector usually contains many zero values which make them more computationally efficient than the dense vectors, where all values are non-zero.
+The benefit of dense vectors is that they can capture nuances better (e.g., identifying synonyms in search queries) than sparse vectors.
 
 At this point, we have established two things:
 - We need to convert our list of books from strings (or maps) to vector embedding;
-- we need to store this vector embedding in a database.
+- We need to store these embeddings in a way that makes them easily queryable.
 
 ## Storing vector embedding
-The choice of storage solutions for vector embedding depends on a number of factors and not purely technical.
+The choice of storage solutions for vector embeddings depends on a number of factors, not purely technical ones.
 - If you already have a database like postgres, you could install the `vector` extension and store your embeddings directly.
 - You could also use a vector database purposely built for semantic search, recommendations, classifications and other machine learning solutions.
 
-We'll go with using a vector database in this article, and the preferred candidate is [QDrant](https://qdrant.tech/) mostly because of familiarity.
+In this article, we'll use a vector database, and the preferred candidate is [QDrant](https://qdrant.tech/) primarily due to familiarity.
 
 It's finally time to write some code. Open up a new livebook notebook, and install the following dependencies:
 ```elixir
@@ -181,11 +181,12 @@ books = [
 ]
 ```
 
-Remember from previous discussion that we need to convert our books list to a vector embedding using a machine learning model. Luckily, we don't have to train a model from scratch and we can take advantage of millions of pretrained models published to [huggingface](https://huggingface.co/models).
+Remember from the previous discussion that we need to convert our books list to a vector embedding using a machine learning model. Luckily, we don't have to train a model from scratch and we can take advantage of millions of pretrained models published to [huggingface](https://huggingface.co/models).
 To load these models in Elixir, we'll use [Bumblebee](https://hexdocs.pm/bumblebee/Bumblebee.html) which we already installed as a dependency.
 Create a new cell and add the following code:
 
 ```elixir
+
 {:ok, model} = Bumblebee.load_model({:hf, "intfloat/e5-small-v2"})
 {:ok, tokenizer} = Bumblebee.load_tokenizer({:hf, "intfloat/e5-small-v2"})
 
@@ -211,7 +212,7 @@ to_vector =
 
 There's a lot going on here so let's unpack it.
 - First we load a suitable model from hugging face, as well as its tokenizer. A tokenizer is necessary to convert the input texts into tokens and then numerical representations in a way the model expects.
-- Next we create a text embedding serving. A serving is a ready to use pipeline for efficiently processing inputs, performing model inference and producing outputs. It also supports batching so that multiple requests can be batched before sending to the GPU, which can be a huge performance boost.
+- Next we create a text embedding serving. A serving is a ready-to-use pipeline for efficiently processing inputs, performing model inference, and producing outputs. It also supports batching so that multiple requests can be batched before sending to the GPU, which can be a huge performance boost.
 The configuration above specifies that we want to wait for 16 requests or 50ms to elapse (whichever comes first) before running the inference. And since it is a process, we need to start it before using it. In a production application, this should be added to your supervision tree.
 - Finally, we have a `to_vector./1` function which is just a wrapper for generating our embedding using the model.
 
@@ -235,9 +236,9 @@ end)
 
 We created a collection called `my_books` with default `dense vector` presets.
 We have set the size to match the vector dimension of the model, which in this case is 384, and also set the distance to `Cosine`.
-We won't dive deep on details about why `Cosine` was picked or what other values there are but they are generally used for texts.
+Cosine distance measures the similarity between two vectors based on the angle between them, which is particularly effective for comparing text embeddings.
 
-Finally, lets test our search. I am interested in the top 3 `Comical fiction series` books.
+Finally, let's test our search. I am interested in the top 3 `Comical fiction series` books.
 ```elixir
 query = to_vector.("Comical fictional series")
 
@@ -287,8 +288,8 @@ We should get a result like this:
 ]
 ```
 
-Each result comes with a score sorted in order of relevancy and some of them do not even contain our keywords, but still returns relevant results.
+Each result comes with a score sorted in order of relevancy and some of them do not even contain our keywords, but still returns relevant result.
 
 ## Conclusion
-We have only scratched the surface of what's possible with vector databases and machine learning, and also using them directly in Elixir. It is worth mentioning that they do introduce additional layers of complexity, but they offer richer experiences to users of our applications.
-The journey into semantic search is a step towards building smarter, more responsive applications that can adapt to the nuanced needs of users in an ever-evolving digital landscape.
+We have only scratched the surface of what's possible with vector databases and machine learning, especially when integrating them directly with Elixir. It is worth mentioning that they introduce additional layers of complexity, but they offer richer experiences for users of our applications.
+Exploring semantic search is a step toward building smarter, more responsive applications that adapt to the nuanced needs of users in an ever-evolving digital landscape.

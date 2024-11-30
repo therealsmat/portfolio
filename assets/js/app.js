@@ -32,9 +32,60 @@ document
 document
   .getElementById("mobileMenuBackdrop")
   .addEventListener("click", closeMobileMenu);
-document
-  .getElementById("soundBtn")
-  .addEventListener("click", playPronunciation);
+// document
+//   .getElementById("soundBtn")
+//   .addEventListener("click", playPronunciation);
+//
+
+code_snippets = document.querySelectorAll("pre > code");
+
+code_snippets.forEach((node) => {
+  // append wrapper element
+  const wrapper = document.createElement("div");
+  while (node.firstChild) {
+    wrapper.appendChild(node.firstChild);
+  }
+  wrapper.style.position = "relative";
+  node.appendChild(wrapper);
+
+  wrapper_width = wrapper.getBoundingClientRect().width;
+
+  // Style node
+  node.style.width = "100%";
+  // Create the "Copy to Clipboard" element
+  const copyElement = document.createElement("button");
+  copyElement.innerText = "Copy";
+  copyElement.style.position = "absolute";
+  copyElement.style.top = "0";
+  copyElement.style.right = `-${wrapper_width}px`;
+  copyElement.style.backgroundColor = "#007BFF";
+  copyElement.style.color = "#fff";
+  copyElement.style.border = "none";
+  copyElement.style.borderRadius = "4px";
+  copyElement.style.padding = "5px 10px";
+  copyElement.style.cursor = "pointer";
+  copyElement.style.zIndex = "999999"; // Ensure it stays on top
+
+  // Add a click event to copy content to the clipboard
+  copyElement.addEventListener("click", () => {
+    // Assuming the text to copy is the node's textContent
+    navigator.clipboard
+      .writeText(node.textContent.replace("Copy", "") || "")
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
+  });
+
+  // Position the parent node as `relative` if not already set
+  const computedStyle = getComputedStyle(node);
+  if (computedStyle.position === "static") {
+    node.style.position = "relative";
+  }
+
+  // Append the "Copy to Clipboard" element to the node
+  // node.appendChild(copyElement);
+  node.insertBefore(copyElement, wrapper);
+});
 
 function setDefaultTheme() {
   theme = "light";

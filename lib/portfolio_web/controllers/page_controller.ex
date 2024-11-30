@@ -25,6 +25,7 @@ defmodule PortfolioWeb.PageController do
 
     render(conn, "post.html",
       post: post,
+      reading_time: calculate_reading_time(post.body),
       meta: [
         description: post.description,
         author: post.author,
@@ -35,5 +36,21 @@ defmodule PortfolioWeb.PageController do
 
   def uses(conn, _params) do
     render(conn, "uses.html")
+  end
+
+  defp calculate_reading_time(content) do
+    time =
+      content
+      |> String.downcase()
+      |> String.split(~r/\W+/, trim: true)
+      |> length()
+      |> IO.inspect(label: "Length")
+      |> div(200)
+
+    if time > 10 do
+      floor(time / 10) * 10
+    else
+      time
+    end
   end
 end
