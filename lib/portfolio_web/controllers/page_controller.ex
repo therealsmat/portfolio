@@ -3,7 +3,7 @@ defmodule PortfolioWeb.PageController do
   require Logger
 
   def index(conn, _params) do
-    render(conn, "index.html", meta: [])
+    render(conn, "index.html", page_title: "Hello World", meta: [])
   end
 
   def health_check(conn, _params) do
@@ -17,13 +17,14 @@ defmodule PortfolioWeb.PageController do
         Map.take(post, [:id, :title, :description, :date, :published])
       end)
 
-    render(conn, "posts.html", posts: posts, meta: [])
+    render(conn, "posts.html", page_title: "Blog posts", posts: posts, meta: [])
   end
 
   def post(conn, params) do
     post = Portfolio.Blog.find_by_id(params["id"])
 
     render(conn, "post.html",
+      page_title: post.title,
       post: post,
       reading_time: calculate_reading_time(post.body),
       meta: [
@@ -44,7 +45,6 @@ defmodule PortfolioWeb.PageController do
       |> String.downcase()
       |> String.split(~r/\W+/, trim: true)
       |> length()
-      |> IO.inspect(label: "Length")
       |> div(200)
 
     if time > 10 do
