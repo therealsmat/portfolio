@@ -9,7 +9,7 @@ servers:
     - <%= ENV["SERVER_IP"] %>
 
 proxy:
-  ssl: true
+  ssl: false
   host: <%= ENV["PHX_HOST"] %>
   app_port: <%= ENV["APP_PORT"] %>
 
